@@ -10,7 +10,7 @@ import com.lm.SpringSecLogin.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
   Optional<User> findByUsername(String username);
-  #Optional because the user may not exist in the database.
+  //Optional because the user may not exist in the database.
 
   Boolean existsByUsername(String username);
 

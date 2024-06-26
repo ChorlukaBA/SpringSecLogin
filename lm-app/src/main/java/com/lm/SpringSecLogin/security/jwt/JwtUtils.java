@@ -34,13 +34,13 @@ public class JwtUtils
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     // Iniettiamo i valori presenti nel file application.properties
-    @Value("${lm.SpringSecLogin.jwtSecret}")
+    @Value("${app.auth.jwtSecret}")    
     private String jwtSecret;
 
-    @Value("${lm.SpringSecLogin.jwtExpirationMs}")
+    @Value("${app.auth.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    @Value("${lm.SpringSecLogin.jwtCookieName}")
+    @Value("${app.auth.jwtCookieName}")
     private String jwtCookie;
 
     // Estrae il token JWT dai cookie

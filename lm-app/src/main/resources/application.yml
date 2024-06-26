@@ -1,0 +1,22 @@
+server.port: 7001
+server.error.include-message: always
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysqldb:7002/lm_db?useSSL=false
+    username: root
+    password: 123456
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    
+  app:
+    name: lm
+    auth:
+      jwtSecret: ======================lm=Spring===========================
+      jwtExpirationMs: 30000
+      jwtCookieName: lm
+
