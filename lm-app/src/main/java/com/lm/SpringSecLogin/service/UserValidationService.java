@@ -35,7 +35,8 @@ public class UserValidationService
         if (existsByUsername) // Se il nome utente esiste già
         {
             log.warn("Username already exists: {}", username); // Loggo l'errore
-            final String existsUsername = exceptionMessageAccessor.getMessage(null,USERNAME_ALREADY_EXISTS); // Ottengo il messaggio di errore per il nome utente già esistente
+            //final String existsUsername = exceptionMessageAccessor.getMessage(null,USERNAME_ALREADY_EXISTS); // Ottengo il messaggio di errore per il nome utente già esistente
+            final String existsUsername = "Username already exists"; // Ottengo il messaggio di errore per il nome utente già esistente
             throw new RegistrationException(existsUsername); // Lancio un'eccezione
         }
     }
@@ -47,7 +48,8 @@ public class UserValidationService
         if (existsByEmail) // Se l'email esiste già
         {
             log.warn("Email already exists: {}", email); // Loggo l'errore
-            final String existsEmail = exceptionMessageAccessor.getMessage(null,EMAIL_ALREADY_EXISTS); // Ottengo il messaggio di errore per l'email già esistente
+            // final String existsEmail = exceptionMessageAccessor.getMessage(null,EMAIL_ALREADY_EXISTS); // Ottengo il messaggio di errore per l'email già esistente
+            final String existsEmail = "Email already exists"; // Ottengo il messaggio di errore per l'email già esistente
             throw new RegistrationException(existsEmail); // Lancio un'eccezione
         }
     }
