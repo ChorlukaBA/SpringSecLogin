@@ -28,7 +28,7 @@ public class SwaggerConfiguration
     private String appLicenseUrl;
     private String contactName;
     private String contactUrl;
-    private String contactEmail;
+ 
 
     @Bean
     public OpenAPI customOpenAPI()
@@ -56,7 +56,6 @@ public class SwaggerConfiguration
         final Contact contact = new Contact();
         contact.setName(contactName);
         contact.setUrl(contactUrl);
-        contact.setEmail(contactEmail);
 
         final Info info = new Info();
         info.setTitle(appName);

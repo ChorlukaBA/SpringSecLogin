@@ -23,7 +23,7 @@ spring:
 springdoc:
   show-actuator: true
   paths-to-match: /**
-  packages-to-scan: com.lm.SpringSecLogin.lm-app
+  packages-to-scan: com.lm.SpringSecLogin
 
 management:
   endpoint:
@@ -45,11 +45,10 @@ jwt:
   expirationMinute: 10
 
 swagger:
-  contact-name: Corrado Luca Eugenio & Marco Francesco Sette
-  contact-mail: ${SWAGGER_CONTACT_MAIL:pippo@topolino,com}
-  contact-url: ${SWAGGER_CONTACT_URL:https://unimore.it}
+  contact-name: Luca Eugenio Corrado & Marco Francesco Sette
+  contact-url: ${SWAGGER_CONTACT_URL:https://www.unimore.it/it}
   app-name: ${SWAGGER_APP_NAME:SpringSecLogin}
-  app-description: "SpringSecLogin is a simple login backend in Spring Boot. This project includes : Spring Boot(2.7.1), Spring Data JPA, Spring Validation, Spring Security + JWT Token, MySQL, Mapstruct, Lombok. "
+  app-description: "SpringSecLogin is a simple login backend in Spring Boot. This project includes Spring Boot, Spring Data JPA, Spring Validation, Spring Security + JWT Token, MySQL, Mapstruct, Lombok, Swagger, Actuator and more."
   app-version: ${SWAGGER_APP_VERSION:2.0.0}
-  app-license-url: ${SWAGGER_APP_LICENSE_URL:https://www.apache.org/licenses/LICENSE-2.0.html}
-  app-license: ${SWAGGER_APP_LICENSE:Apache 2.0}
+  app-license-url: ${SWAGGER_APP_LICENSE_URL:https://www.opensource.org/licenses/MIT}
+  app-license: ${SWAGGER_APP_LICENSE:MIT}
