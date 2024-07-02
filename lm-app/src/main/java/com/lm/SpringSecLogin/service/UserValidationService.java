@@ -1,6 +1,6 @@
 package com.lm.SpringSecLogin.service;
 
-import com.lm.SpringSecLogin.utils.ExceptionMessageAccessor;
+//import com.lm.SpringSecLogin.utils.ExceptionMessageAccessor;
 import com.lm.SpringSecLogin.exceptions.RegistrationException;
 import com.lm.SpringSecLogin.repository.UserRepository;
 import com.lm.SpringSecLogin.security.dto.RegistrationRequest;
@@ -13,11 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserValidationService
 {
-    private static final String EMAIL_ALREADY_EXISTS = "Email already exists"; // Messaggio di errore per l'email già esistente
-    private static final String USERNAME_ALREADY_EXISTS = "Username_already_exists"; // Messaggio di errore per il nome utente già esistente
-
     private final UserRepository userRepository; // UserRepository per la gestione degli utenti
-    private final ExceptionMessageAccessor exceptionMessageAccessor; // ExceptionMessageAccessor per l'accesso ai messaggi di errore
+    //private final ExceptionMessageAccessor exceptionMessageAccessor; // ExceptionMessageAccessor per l'accesso ai messaggi di errore
 
     public void validateUser(RegistrationRequest registrationRequest)
     {

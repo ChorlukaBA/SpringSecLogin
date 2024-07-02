@@ -7,7 +7,6 @@ import com.lm.SpringSecLogin.security.dto.AuthenticatedUserDto;                 
 import com.lm.SpringSecLogin.security.dto.RegistrationRequest;                          // Importiamo la classe RegistrationRequest
 import com.lm.SpringSecLogin.security.dto.RegistrationResponse;                         // Importiamo la classe RegistrationResponse
 import com.lm.SpringSecLogin.security.mapper.UserMapper;                                // Importiamo la classe UserMapper
-import com.lm.SpringSecLogin.utils.GeneralMessageAccessor;                             // Importiamo la classe GeneralMessageAccessor
 import com.lm.SpringSecLogin.repository.UserRepository;                                 // Importiamo la classe UserRepository
 import lombok.RequiredArgsConstructor;                                              // Importiamo l'annotazione RequiredArgsConstructor
 import lombok.extern.slf4j.Slf4j;                                                    // Importiamo l'annotazione slf4j
@@ -24,8 +23,6 @@ public class UserServiceImpl implements UserService
     private final UserRepository userRepository;                                     // UserRepository per la gestione degli utenti
     private final BCryptPasswordEncoder bCryptPasswordEncoder;                       // BCryptPasswordEncoder per la crittografia della password
     private final UserValidationService userValidationService;                     // UserValidationService per la validazione dell'utente
-    private final GeneralMessageAccessor generalMessageAccessor;                   // GeneralMessageAccessor per l'accesso ai messaggi generali
-
     @Override
     public User findByUsername(String username)
     {
