@@ -18,11 +18,10 @@ import org.springframework.stereotype.Service;                                  
 @Service
 public class UserServiceImpl implements UserService
 {
-    private static final String REGISTRATION_SUCCESSFUL = "Registration successful"; // Messaggio di successo per la registrazione
-
     private final UserRepository userRepository;                                     // UserRepository per la gestione degli utenti
     private final BCryptPasswordEncoder bCryptPasswordEncoder;                       // BCryptPasswordEncoder per la crittografia della password
     private final UserValidationService userValidationService;                     // UserValidationService per la validazione dell'utente
+
     @Override
     public User findByUsername(String username)
     {
@@ -41,7 +40,6 @@ public class UserServiceImpl implements UserService
         userRepository.save(user);                                                  // Salvo l'utente nel database
 
         final String username = registrationRequest.getUsername();                  // Ottengo il nome utente
-        // final String registrationSuccessMessage = generalMessageAccessor.getMessage(null, REGISTRATION_SUCCESSFUL, username); // Ottengo il messaggio di successo per la registrazione
         final String registrationSuccessMessage = "Registration successful"; // Ottengo il messaggio di successo per la registrazione
         log.info("{} registered successfully!", username);                        // Loggo il successo della registrazione
 

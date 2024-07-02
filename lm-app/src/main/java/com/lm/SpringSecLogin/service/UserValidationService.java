@@ -1,6 +1,5 @@
 package com.lm.SpringSecLogin.service;
 
-//import com.lm.SpringSecLogin.utils.ExceptionMessageAccessor;
 import com.lm.SpringSecLogin.exceptions.RegistrationException;
 import com.lm.SpringSecLogin.repository.UserRepository;
 import com.lm.SpringSecLogin.security.dto.RegistrationRequest;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class UserValidationService
 {
     private final UserRepository userRepository; // UserRepository per la gestione degli utenti
-    //private final ExceptionMessageAccessor exceptionMessageAccessor; // ExceptionMessageAccessor per l'accesso ai messaggi di errore
 
     public void validateUser(RegistrationRequest registrationRequest)
     {
@@ -32,7 +30,6 @@ public class UserValidationService
         if (existsByUsername) // Se il nome utente esiste già
         {
             log.warn("Username already exists: {}", username); // Loggo l'errore
-            //final String existsUsername = exceptionMessageAccessor.getMessage(null,USERNAME_ALREADY_EXISTS); // Ottengo il messaggio di errore per il nome utente già esistente
             final String existsUsername = "Username already exists"; // Ottengo il messaggio di errore per il nome utente già esistente
             throw new RegistrationException(existsUsername); // Lancio un'eccezione
         }
@@ -45,7 +42,6 @@ public class UserValidationService
         if (existsByEmail) // Se l'email esiste già
         {
             log.warn("Email already exists: {}", email); // Loggo l'errore
-            // final String existsEmail = exceptionMessageAccessor.getMessage(null,EMAIL_ALREADY_EXISTS); // Ottengo il messaggio di errore per l'email già esistente
             final String existsEmail = "Email already exists"; // Ottengo il messaggio di errore per l'email già esistente
             throw new RegistrationException(existsEmail); // Lancio un'eccezione
         }

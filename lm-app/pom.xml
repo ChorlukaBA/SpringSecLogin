@@ -132,7 +132,7 @@
 
 	<build>
 
-		<finalName>spring-boot-SpringSecLogin</finalName>
+		<finalName>SpringSecLogin</finalName>
 
 		<plugins>
 

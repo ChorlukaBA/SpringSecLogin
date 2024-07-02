@@ -19,10 +19,10 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  app:
-    container_name: app
+  storemanager:
+    container_name: StoreManager
     build:
-      context: .
+      context: ./lm-app
     ports:
       - "8080:8080"
     environment:
