@@ -1,4 +1,15 @@
-## Introduction to Spring framework
+## Enabling Technologies
+1. **Introduction to Spring framework**
+2. **Introduction to Spring Boot**
+3. **Introduction to Spring Security**
+4. **Spring Security + JWT Token**
+5. **Spring Validation**
+6. **Spring Data JPA**
+7. **Mapstruct**
+8. **Lombok**
+9. **Swagger**
+
+## 1. Introduction to Spring framework
 
 ### What is Spring ?
 The Spring framework provides comprehensive infrastructure support for developing Java applications.
@@ -24,7 +35,7 @@ These modules can drastically reduce the development time of an application.
 - **Runtime overhead**: Spring's runtime overhead can be higher compared to lightweight frameworks, although the performance impact is usually negligible for most applications.
 - **XML configuration**: In older versions of Spring, XML configuration was the primary way to configure the framework, which can be verbose and error-prone.
 
-## Introduction to Spring Boot
+## 2. Introduction to Spring Boot
 
 ### What is Spring Boot?
 Spring Boot is a framework that simplifies the development of Spring applications by providing a convention-over-configuration approach.  
@@ -39,7 +50,7 @@ It is basically an extension of the Spring framework, which eliminates the boile
 
 These features make Spring Boot a popular choice for building microservices and cloud-native applications.
 
-## Introduction to Spring Security
+## 3. Introduction to Spring Security
 
 ### What is Spring Security?
 Spring Security is a powerful and highly customizable security framework that is built using the Spring framework in Java. 
@@ -435,7 +446,7 @@ This token is then embedded in forms or added to request headers whenever the us
 In the code snippet, Spring Security's CSRF protection is enabled by calling the .csrf(Customizer.withDefaults()) method. This configures the default CSRF protection settings for unsafe HTTP methods like POST requests. Spring Security automatically generates and validates CSRF tokens for you, so you don't need to write additional code to handle CSRF protection.
 It's important to note that CSRF protection should be used in conjunction with other security measures, such as authentication and authorization, to provide comprehensive protection for applications.
 
-## Spring Security + JWT Token: JWT authentication
+## 4. Spring Security + JWT Token: JWT authentication
 
 ### JWT's goal and structure 
 
@@ -511,7 +522,7 @@ Authorization: Bearer <token>
 The server's protected routes will check for a valid JWT in the Authorization header, and if it's present, the user will be allowed to access protected resources.
 The Bearer authentication scheme was originally created as part of **OAuth 2.0** but is sometimes also used on its own.  
 
-## Spring Validation
+## 5. Spring Validation
 In Spring Boot, validation is made easier with annotations that mark fields with specific validation rules.
 
 When you apply the `@Valid` annotation to a method parameter, Spring Boot automatically triggers validation for that parameter before the method is invoked. It is placed before the object to indicate that it should be validated. This means that the incoming data for that parameter will be validated against the specified validation rules.
@@ -541,7 +552,7 @@ The dependency which it's required in the `pom.xml` file is:
 </dependency>
 ```
 
-## Spring Data JPA
+## 6. Spring Data JPA
 Spring Data JPA, part of the larger Spring Data family, makes it easy to easily implement JPA-based (`Java Persistence API`) repositories. It makes it easier to build Spring-powered applications that use data access technologies.
 Spring Data JPA aims to significantly improve the implementation of data access layers by reducing the effort to the amount that’s actually needed.
 The java persistence API provides a specification for persisting, reading, and managing data from your java object to your relational tables in the database. JPA specifies the set of rules and guidelines for developing interfaces that follow standards.
@@ -584,7 +595,7 @@ To use Spring Data JPA in your project, you need to include the following Maven 
 ```
 It's important to replace **mysql-connector-java** with the appropriate database driver for your project.
 
-## Mapstruct
+## 7. Mapstruct
 MapStruct is a Java-based code generation library that simplifies the mapping between different Java bean types, such as the mapping between **DTOs (Data Transfer Objects)** and entities.
 It eliminates the need for writing boilerplate mapping code by generating the mapping implementation at compile-time.
 
@@ -637,7 +648,7 @@ CarDto carDto = mapper.carToCarDto(car);
 MapStruct will generate the implementation of the `CarMapper` interface, which includes the mapping methods `carToCarDto` and `carDtoToCar`. 
 We can then use the generated mapper to perform the mapping between `Car` and `CarDto` objects.
 
-## Lombok
+## 8. Lombok
 Lombok is a java library tool that is used to minimize/remove the boilerplate code and save the precious time of developers during development by just using some annotations.
 In addition to it, it also increases the readability of the source code and saves space.On the other hand, Lombok adds all these boilerplate codes at the compile time in the “.class” file and not in our source code. Let us compare our source code with and without using Lombok.
 
@@ -730,7 +741,7 @@ These annotations provide the getter and setter methods for a field.
 
 4. **`@Data`**: This annotation is a shortcut annotation and bundles @ToString, @Getter, @Setter, @EqualsAndHashCode and @RequiredArgsConstructor annotations into a single annotation. This annotation provides all the normally used boilerplate code in the model classes of java like getters for all the fields, setter for all the non-final fields, a default implementation for toString(), equals() and hashCode() using all the fields of the class and a constructor that initializes all the fields of the class. 
 
-## Swagger
+## 9. Swagger
 Swagger is an open-source framework that allows developers to design, build, document, and consume RESTful web services. It provides a set of tools and specifications that enable the creation of interactive API documentation.
 
 With Swagger, we can define your API using the **OpenAPI** Specification (formerly known as Swagger Specification). This specification allow us to describe our API endpoints, request/response formats, authentication methods, and more. 
