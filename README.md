@@ -15,7 +15,7 @@ There are 2 microservices that interact with each other: our Store service and t
 Each of these are well known technologies in the Java ecosystem and are widely used in the industry.
 We already explained the purpose of each of these technologies in the General Documentation, so here we will focus on how we used them in our project.
 # Usage
-1. Use maven to build the project:
+1. Use maven to build the project, from the "lm-app" directory:
 ```bash
 mvn clean install
 ```
