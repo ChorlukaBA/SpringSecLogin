@@ -1,17 +1,20 @@
-## Enabling Technologies
+## Summary
 1. **Introduction to Spring framework**
 2. **Introduction to Spring Boot**
 3. **Introduction to Spring Security**
-4. **Spring Security + JWT Token**
-5. **Spring Validation**
-6. **Spring Data JPA**
-7. **Mapstruct**
-8. **Lombok**
-9. **Swagger**
+4. **Spring Security Authentication**
+5. **Spring Security Authorization**
+6. **Protection Against Exploits**
+7. **Spring Security + JWT Token**
+8. **Spring Validation**
+9. **Spring Data JPA**
+10. **Mapstruct**
+11. **Lombok**
+12. **Swagger**
 
 ## 1. Introduction to Spring framework
 
-### What is Spring ?
+### 1.1 What is Spring ?
 The Spring framework provides comprehensive infrastructure support for developing Java applications.
 It’s packed with some nice features like Dependency Injection, and out of the box modules like:
 - **Spring JDBC**
@@ -22,14 +25,14 @@ It’s packed with some nice features like Dependency Injection, and out of the 
 
 These modules can drastically reduce the development time of an application.
 
-### Advantages of Spring:
+### 1.2 Advantages of Spring:
 - **Simplifies development**: Spring provides a lightweight and modular approach to building Java applications, making development faster and more efficient.
 - **Dependency Injection**: Spring's dependency injection feature allows for loose coupling between components, making it easier to manage and test dependencies.
 - **AOP Support**: Spring's Aspect-Oriented Programming (AOP) support enables separation of cross-cutting concerns, such as logging and transaction management, from the core business logic.
 - **Integration with other frameworks**: Spring seamlessly integrates with other popular frameworks and technologies, such as Hibernate, JPA, and RESTful APIs.
 - **Robust ecosystem**: Spring has a large and active community, which means there are plenty of resources, tutorials, and third-party libraries available for support.
 
-### Disadvantages of Spring:
+### 1.3 Disadvantages of Spring:
 - **Steep learning curve**: Spring is a comprehensive framework with many features, which can make it overwhelming for beginners.
 - **Configuration complexity**: Spring's configuration can be complex, especially when dealing with advanced scenarios or integrating with other frameworks.
 - **Runtime overhead**: Spring's runtime overhead can be higher compared to lightweight frameworks, although the performance impact is usually negligible for most applications.
@@ -37,11 +40,11 @@ These modules can drastically reduce the development time of an application.
 
 ## 2. Introduction to Spring Boot
 
-### What is Spring Boot?
+### 2.1 What is Spring Boot?
 Spring Boot is a framework that simplifies the development of Spring applications by providing a convention-over-configuration approach.  
 It is basically an extension of the Spring framework, which eliminates the boilerplate configurations required for setting up a Spring application and allows developers to quickly create standalone, production-ready applications.
 
-### Features of Spring Boot:
+### 2.2 Features of Spring Boot:
 1. **Auto-configuration**: Spring Boot automatically configures the application based on the dependencies present in the classpath, reducing the need for manual configuration.
 2. **Embedded server**: Spring Boot includes an embedded server, such as Tomcat or Jetty, allowing applications to be easily deployed as standalone executables.
 3. **Starter dependencies**: Spring Boot provides a set of starter dependencies that include all the necessary libraries for specific functionalities, such as web development, database access, and security.
@@ -52,11 +55,11 @@ These features make Spring Boot a popular choice for building microservices and 
 
 ## 3. Introduction to Spring Security
 
-### What is Spring Security?
+### 3.1 What is Spring Security?
 Spring Security is a powerful and highly customizable security framework that is built using the Spring framework in Java. 
 It provides a comprehensive set of features to secure your application, including authentication, authorization, and protection against common security vulnerabilities.
 
-### Features of Spring Security:
+### 3.2 Features of Spring Security:
 1. **Authentication**: Spring Security allows you to easily implement various authentication mechanisms, such as username/password, token-based, or social login. It supports integration with popular authentication providers like LDAP, OAuth, and OpenID Connect.
 2. **Authorization**: With Spring Security, you can define fine-grained access control rules based on roles, permissions, or custom expressions. It provides support for both method-level and URL-level security.
 3. **Secure Communication**: Spring Security helps you secure your application's communication by providing features like HTTPS, CSRF protection, and secure cookie handling.
@@ -68,7 +71,7 @@ It provides a comprehensive set of features to secure your application, includin
 9. **Multi-factor Authentication**: Spring Security supports multi-factor authentication, allowing you to add an extra layer of security to your application.
 10. **Integration with External Security Providers**: Spring Security can integrate with external security providers like Active Directory, SAML, or OAuth, enabling seamless integration with existing authentication and authorization systems.
 
-### Spring Security Modules
+### 3.3 Spring Security Modules
 - Core: It includes Spring Security's core classes and interfaces related to authentication and application access control.
 - Remoting: It is used for handling the Spring Remoting application and contains the necessary classes.
 - Aspect: It is used to include Aspect-Oriented Programming (AOP) support within Spring Security.
@@ -83,7 +86,7 @@ It provides a comprehensive set of features to secure your application, includin
 - Test: It adds testing support in the Spring Security.
 - Web: It contains web security code, such as filters and Servlet API dependencies.
 
-### Enabling Method Security 
+### 3.4 Enabling Method Security 
 As most open source projects, Spring Security deploys its dependencies as Maven artifacts.
 Open the pom.xml file and add the following maven dependency:
 ```xml
@@ -104,9 +107,9 @@ Since Spring Boot provides a Maven BOM to manage dependency versions, you do not
 	<spring-security.version>6.3.1</spring-security.version>
 </properties>
 ```
-## Spring Security Authentication 
+## 4. Spring Security Authentication 
 
-### Username/Password Authentication
+### 4.1 Username/Password Authentication
 Spring Security provides comprehensive support for authentication. 
 Authentication is how we verify the identity of who is trying to access a particular resource. 
 A common way to authenticate users is by requiring the user to enter a username and password. 
@@ -229,7 +232,7 @@ public class LoginController {
 
 }
 ```
-### Password Storage: BCryptPasswordEncoder
+### 4.2 Password Storage: BCryptPasswordEncoder
 Spring Security’s PasswordEncoder interface is used to perform a one-way transformation of a password to let the password be stored securely. 
 Given PasswordEncoder is a one-way transformation, it is not useful when the password transformation needs to be two-way (such as storing credentials used to authenticate to a database). 
 Typically, PasswordEncoder is used for storing a password that needs to be compared to a user-provided password at the time of authentication. 
@@ -261,13 +264,13 @@ assertTrue(encoder.matches("myPassword", result));
 6. **Future-Proof**: Bcrypt is designed to be future-proof, meaning that even if new vulnerabilities or weaknesses are discovered in the algorithm, it can be easily upgraded or replaced with a more secure alternative. This helps to ensure that your password hashes remain secure in the long term.
 
 
-## Spring Security Authorization
+## 5. Spring Security Authorization
 Having established how users will authenticate, you also need to configure your application’s authorization rules. Authorization is determining who is allowed to access a particular resource. 
 Spring Security provides defense in depth by allowing for request based authorization and method based authorization.
 
 You should consider attaching authorization rules to request URIs and methods to begin. In either case, you can listen and react to authorization events that each authorization check publishes.
 
-### Authorities: GrantedAuthority and SimpleGrantedAuthority
+### 5.1 Authorities: GrantedAuthority and SimpleGrantedAuthority
 
 Authentication discusses how all Authentication implementations store a list of GrantedAuthority objects. These represent the authorities that have been granted to the principal. 
 The **`GrantedAuthority`** objects are inserted into the Authentication object by the AuthenticationManager and are later read by AccessDecisionManager instances when making authorization decisions.
@@ -293,7 +296,7 @@ static GrantedAuthorityDefaults grantedAuthorityDefaults() {
 	return new GrantedAuthorityDefaults("MYPREFIX_");
 }
 ```
-### Authorize HttpRequests
+### 5.2 Authorize HttpRequests
 Spring Security allows you to model your authorization at the request level. For example, with Spring Security you can say that all pages under /admin require one authority while all other pages simply require authentication.
 
 By default, Spring Security requires that every request be authenticated. That said, any time you use an HttpSecurity instance, it’s necessary to declare your authorization rules.
@@ -347,7 +350,7 @@ SecurityFilterChain web(HttpSecurity http) throws Exception {
 5. Any URL that starts with "/db/" requires the user to have both been granted the "db" permission as well as be a "ROLE_ADMIN". You will notice that since we are using the hasRole expression we do not need to specify the "ROLE_" prefix.
 6. Any URL that has not already been matched on is denied access. This is a good strategy if you do not want to accidentally forget to update your authorization rules.
 
-### Method Security 
+### 5.3 Method Security 
 In addition to modeling authorization at the request level, Spring Security also supports modeling at the method level.
 You can activate it in your application by annotating any **@Configuration** class with **`@EnableMethodSecurity`**.
 Then, you are immediately able to annotate any Spring-managed class or method with **`@PreAuthorize`**, **`@PostAuthorize`**, **`@PreFilter`**, and **`@PostFilter`** to authorize method invocations, including the input parameters and return values.
@@ -358,7 +361,7 @@ Spring Security’s method authorization support is handy for:
 - Enforcing security at the service layer
 - Stylistically favoring annotation-based over HttpSecurity-based configuration
 
-#### Authorizing Method Invocation with @PreAuthorize
+#### 5.3.1 Authorizing Method Invocation with @PreAuthorize
 When Method Security is active, you can annotate a method with the @PreAuthorize annotation like so:
 ```java
 @Component
@@ -371,7 +374,7 @@ public class BankService {
 ```
 This is meant to indicate that the method can only be invoked if the provided expression hasRole('ADMIN') passes.
 
-#### Authorization Method Results with @PostAuthorize
+#### 5.3.2 Authorization Method Results with @PostAuthorize
 When Method Security is active, you can annotate a method with the @PostAuthorize annotation like so:
 ```java
 @Component
@@ -384,7 +387,7 @@ public class BankService {
 ```
 This is meant to indicate that the method can only return the value if the provided expression returnObject.owner == authentication.name passes. returnObject represents the Account object to be returned.
 
-#### Filtering Method Parameters with @PreFilter
+#### 5.3.2 Filtering Method Parameters with @PreFilter
 When Method Security is active, you can annotate a method with the @PreFilter annotation like so:
 ```java
 @Component
@@ -398,7 +401,7 @@ public class BankService {
 ```
 This is meant to filter out any values from accounts where the expression filterObject.owner == authentication.name fails. filterObject represents each account in accounts and is used to test each account.
 
-#### Filtering Method Results with @PostFilter
+#### 5.3.3 Filtering Method Results with @PostFilter
 When Method Security is active, you can annotate a method with the @PostFilter annotation like so:
 ```java
 @Component
@@ -412,14 +415,14 @@ public class BankService {
 ```
 This is meant to filter out any values from the return value where the expression filterObject.owner == authentication.name fails. filterObject represents each account in accounts and is used to test each account.
 
-#### Authorizing Method Invocation with @Secured
+#### 5.3.4 Authorizing Method Invocation with @Secured
 @Secured is a legacy option for authorizing invocations. @PreAuthorize supercedes it and is recommended instead.
 To use the @Secured annotation, you should first change your Method Security declaration to enable it like so:
 @EnableMethodSecurity(securedEnabled = true)
 This will cause Spring Security to publish the corresponding method interceptor that authorizes methods, classes, and interfaces annotated with @Secured.
 
-## Protection Against Exploits
-### Cross Site Request Forgery (CSRF)
+## 6. Protection Against Exploits
+### 6.1 Cross Site Request Forgery (CSRF)
 Cross-Site Request Forgery (CSRF) is a type of attack where an attacker tricks a user into performing unwanted actions on a website without their knowledge or consent. This can lead to unauthorized changes, data theft, or other malicious activities.
 Spring Security protects against CSRF attacks by default for unsafe HTTP methods, such as a POST request, so no additional code is necessary.
 In this way CSRF protection adds an additional layer of security by ensuring that requests made to your application are legitimate and originated from your own website.
@@ -446,9 +449,9 @@ This token is then embedded in forms or added to request headers whenever the us
 In the code snippet, Spring Security's CSRF protection is enabled by calling the .csrf(Customizer.withDefaults()) method. This configures the default CSRF protection settings for unsafe HTTP methods like POST requests. Spring Security automatically generates and validates CSRF tokens for you, so you don't need to write additional code to handle CSRF protection.
 It's important to note that CSRF protection should be used in conjunction with other security measures, such as authentication and authorization, to provide comprehensive protection for applications.
 
-## 4. Spring Security + JWT Token: JWT authentication
+## 7. Spring Security + JWT Token: JWT authentication
 
-### JWT's goal and structure 
+### 7.1 JWT's goal and structure 
 
 JSON Web Token (JWT) is an open standard that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. 
 This information can be verified and trusted because it is digitally signed.
@@ -509,7 +512,7 @@ To work with JWT, we need to define the right dependency in the `pom.xml` file:
 	<version>${jwt.version}</version>
 </dependency>
 ```
-### How do JSON Web Tokens (JWT) work?
+### 7.2 How do JSON Web Tokens (JWT) work?
 In authentication, when the user successfully logs in using their credentials, a JSON Web Token will be returned. Since tokens are credentials, great care must be taken to prevent security issues. In general, you should not keep tokens longer than required.
 
 Whenever the user wants to access a protected route or resource, the user agent should send the JWT, typically in the Authorization header using the Bearer schema.
@@ -522,7 +525,7 @@ Authorization: Bearer <token>
 The server's protected routes will check for a valid JWT in the Authorization header, and if it's present, the user will be allowed to access protected resources.
 The Bearer authentication scheme was originally created as part of **OAuth 2.0** but is sometimes also used on its own.  
 
-## 5. Spring Validation
+## 8. Spring Validation
 In Spring Boot, validation is made easier with annotations that mark fields with specific validation rules.
 
 When you apply the `@Valid` annotation to a method parameter, Spring Boot automatically triggers validation for that parameter before the method is invoked. It is placed before the object to indicate that it should be validated. This means that the incoming data for that parameter will be validated against the specified validation rules.
@@ -552,7 +555,7 @@ The dependency which it's required in the `pom.xml` file is:
 </dependency>
 ```
 
-## 6. Spring Data JPA
+## 9. Spring Data JPA
 Spring Data JPA, part of the larger Spring Data family, makes it easy to easily implement JPA-based (`Java Persistence API`) repositories. It makes it easier to build Spring-powered applications that use data access technologies.
 Spring Data JPA aims to significantly improve the implementation of data access layers by reducing the effort to the amount that’s actually needed.
 The java persistence API provides a specification for persisting, reading, and managing data from your java object to your relational tables in the database. JPA specifies the set of rules and guidelines for developing interfaces that follow standards.
@@ -595,7 +598,7 @@ To use Spring Data JPA in your project, you need to include the following Maven 
 ```
 It's important to replace **mysql-connector-java** with the appropriate database driver for your project.
 
-## 7. Mapstruct
+## 10. Mapstruct
 MapStruct is a Java-based code generation library that simplifies the mapping between different Java bean types, such as the mapping between **DTOs (Data Transfer Objects)** and entities.
 It eliminates the need for writing boilerplate mapping code by generating the mapping implementation at compile-time.
 
@@ -648,7 +651,7 @@ CarDto carDto = mapper.carToCarDto(car);
 MapStruct will generate the implementation of the `CarMapper` interface, which includes the mapping methods `carToCarDto` and `carDtoToCar`. 
 We can then use the generated mapper to perform the mapping between `Car` and `CarDto` objects.
 
-## 8. Lombok
+## 11. Lombok
 Lombok is a java library tool that is used to minimize/remove the boilerplate code and save the precious time of developers during development by just using some annotations.
 In addition to it, it also increases the readability of the source code and saves space.On the other hand, Lombok adds all these boilerplate codes at the compile time in the “.class” file and not in our source code. Let us compare our source code with and without using Lombok.
 
@@ -741,7 +744,7 @@ These annotations provide the getter and setter methods for a field.
 
 4. **`@Data`**: This annotation is a shortcut annotation and bundles @ToString, @Getter, @Setter, @EqualsAndHashCode and @RequiredArgsConstructor annotations into a single annotation. This annotation provides all the normally used boilerplate code in the model classes of java like getters for all the fields, setter for all the non-final fields, a default implementation for toString(), equals() and hashCode() using all the fields of the class and a constructor that initializes all the fields of the class. 
 
-## 9. Swagger
+## 12. Swagger
 Swagger is an open-source framework that allows developers to design, build, document, and consume RESTful web services. It provides a set of tools and specifications that enable the creation of interactive API documentation.
 
 With Swagger, we can define your API using the **OpenAPI** Specification (formerly known as Swagger Specification). This specification allow us to describe our API endpoints, request/response formats, authentication methods, and more. 
