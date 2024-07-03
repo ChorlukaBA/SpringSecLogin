@@ -1,55 +1,63 @@
 package com.lm.SpringSecLogin.security.service;
 
-import com.lm.SpringSecLogin.service.UserValidationService;                         // Importiamo il servizio UserValidationService
-import com.lm.SpringSecLogin.model.User;                                            // Importiamo la classe User
-import com.lm.SpringSecLogin.model.UserRole;                                        // Importiamo la classe UserRole
-import com.lm.SpringSecLogin.security.dto.AuthenticatedUserDto;                         // Importiamo la classe AuthenticatedUserDto
-import com.lm.SpringSecLogin.security.dto.RegistrationRequest;                          // Importiamo la classe RegistrationRequest
-import com.lm.SpringSecLogin.security.dto.RegistrationResponse;                         // Importiamo la classe RegistrationResponse
-import com.lm.SpringSecLogin.security.mapper.UserMapper;                                // Importiamo la classe UserMapper
-import com.lm.SpringSecLogin.repository.UserRepository;                                 // Importiamo la classe UserRepository
-import lombok.RequiredArgsConstructor;                                              // Importiamo l'annotazione RequiredArgsConstructor
-import lombok.extern.slf4j.Slf4j;                                                    // Importiamo l'annotazione slf4j
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;             // Importiamo la classe BCryptPasswordEncoder (per la crittografia della password)
-import org.springframework.stereotype.Service;                                      // Importiamo l'annotazione Service
+import com.lm.SpringSecLogin.service.UserValidationService;                         // Here we import the UserValidationService, a service class that provides the logic to validate the user
+import com.lm.SpringSecLogin.model.User;                                            // Here we import the User, our model class for the user
+import com.lm.SpringSecLogin.model.UserRole;                                        // Here we import the UserRole, an enum for the user roles
+import com.lm.SpringSecLogin.security.dto.AuthenticatedUserDto;                     // Here we import the AuthenticatedUserDto, our DTO class for the authenticated user
+import com.lm.SpringSecLogin.security.dto.RegistrationRequest;                      // Here we import the RegistrationRequest, our DTO class for the registration request
+import com.lm.SpringSecLogin.security.dto.RegistrationResponse;                     // Here we import the RegistrationResponse, our DTO class for the registration response
+import com.lm.SpringSecLogin.security.mapper.UserMapper;                            // Here we import the UserMapper, a mapper class for the user
+import com.lm.SpringSecLogin.repository.UserRepository;                             // Here we import the UserRepository, an interface that extends the JpaRepository interface
+import lombok.RequiredArgsConstructor;                                              // Lombok annotation that creates a constructor with all the required arguments
+import lombok.extern.slf4j.Slf4j;                                                   // Lombok annotation that creates a logger
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;            // Import for BCryptPasswordEncoder, a password encoder that uses the BCrypt strong hashing function
+import org.springframework.stereotype.Service;                                      // Import for Service, an annotation to indicate that the class is a service
+
+/*
+    * UserServiceImpl is a service class that provides the implementation for the methods to find the user by username, register a new user, and find the authenticated user by username.
+    * It uses the UserRepository to save the user to the database and find the user by username.
+    * It uses the BCryptPasswordEncoder to encode the user password.
+    * It uses the UserValidationService to validate the user.
+    * It uses the UserMapper to convert the RegistrationRequest to a User and the User to an AuthenticatedUserDto.
+ */
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService
 {
-    private final UserRepository userRepository;                                     // UserRepository per la gestione degli utenti
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;                       // BCryptPasswordEncoder per la crittografia della password
-    private final UserValidationService userValidationService;                     // UserValidationService per la validazione dell'utente
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserValidationService userValidationService;
 
     @Override
     public User findByUsername(String username)
     {
-        return userRepository.findByUsername(username);                             // Restituisco l'utente con il nome utente specificato
+        return userRepository.findByUsername(username);
     }
 
     @Override
     public RegistrationResponse registration(RegistrationRequest registrationRequest)
     {
-        userValidationService.validateUser(registrationRequest);                   // Validiamo l'utente
+        userValidationService.validateUser(registrationRequest);
 
-        final User user = UserMapper.INSTANCE.convertToUser(registrationRequest); // Converto la richiesta di registrazione in un oggetto User
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));        // Critto la password dell'utente
-        user.setUserRole(UserRole.USER);                                           // Imposto il ruolo dell'utente come USER
+        final User user = UserMapper.INSTANCE.convertToUser(registrationRequest);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setUserRole(UserRole.USER);
 
-        userRepository.save(user);                                                  // Salvo l'utente nel database
+        userRepository.save(user);
 
-        final String username = registrationRequest.getUsername();                  // Ottengo il nome utente
-        final String registrationSuccessMessage = "Registration successful"; // Ottengo il messaggio di successo per la registrazione
-        log.info("{} registered successfully!", username);                        // Loggo il successo della registrazione
+        final String username = registrationRequest.getUsername();
+        final String registrationSuccessMessage = "Registration successful";
+        log.info("{} registered successfully!", username);
 
-        return new RegistrationResponse(registrationSuccessMessage);               // Restituisco un oggetto RegistrationResponse con il messaggio di successo
+        return new RegistrationResponse(registrationSuccessMessage);
     }
 
     @Override
     public AuthenticatedUserDto findAuthenticatedUserByUsername(String username)
     {
-        final User user = findByUsername(username);                                 // Ottengo l'utente con il nome utente specificato
-        return UserMapper.INSTANCE.convertToAuthenticatedUserDto(user);            // Converto l'utente in un oggetto AuthenticatedUserDto
+        final User user = findByUsername(username);
+        return UserMapper.INSTANCE.convertToAuthenticatedUserDto(user);
     }
 }

@@ -1,18 +1,25 @@
 package com.lm.SpringSecLogin.security.service;
 
-import com.lm.SpringSecLogin.model.UserRole;                                      // Importo la classe UserRole del package models
-import com.lm.SpringSecLogin.security.dto.AuthenticatedUserDto;                    // Importo la classe AuthenticatedUserDto del package dto
-import lombok.RequiredArgsConstructor;                                               // Per iniettare le dipendenze
-import lombok.extern.slf4j.Slf4j;                                                    // Per il logging
-import org.springframework.security.core.authority.SimpleGrantedAuthority;          // Per la gestione dei privilegi dell'utente loggato
-import org.springframework.security.core.userdetails.User;                          // Classe che rappresenta un utente autenticato
-import org.springframework.security.core.userdetails.UserDetails;                   // Interfaccia che rappresenta un utente autenticato
-import org.springframework.security.core.userdetails.UserDetailsService;            // Interfaccia che carica i dettagli dell'utente (Ha un solo metodo loadUserByUsername, di cui facciamo override)
-import org.springframework.security.core.userdetails.UsernameNotFoundException;     // Eccezione che viene lanciata quando non viene trovato l'utente
-import org.springframework.stereotype.Service;                                      // Per indicare che si tratta di un bean di servizio
+import com.lm.SpringSecLogin.model.UserRole;                                      // Here we import the UserRole, an enum for the user roles
+import com.lm.SpringSecLogin.security.dto.AuthenticatedUserDto;                    // Here we import the AuthenticatedUserDto, our DTO class for the authenticated user
+import lombok.RequiredArgsConstructor;                                               // Lombok annotation that creates a constructor with all the required arguments
+import lombok.extern.slf4j.Slf4j;                                                    // Lombok annotation that creates a logger
+import org.springframework.security.core.authority.SimpleGrantedAuthority;          // Import for SimpleGrantedAuthority, a simple implementation of the GrantedAuthority interface
+import org.springframework.security.core.userdetails.User;                          // Import for User, a core interface which models core user information
+import org.springframework.security.core.userdetails.UserDetails;                   // Import for UserDetails, a core interface which loads user-specific data
+import org.springframework.security.core.userdetails.UserDetailsService;            // Import for UserDetailsService, an interface for user details service
+import org.springframework.security.core.userdetails.UsernameNotFoundException;     // Import for UsernameNotFoundException, an exception thrown when a user is not found
+import org.springframework.stereotype.Service;                                      // Import for Service, an annotation to indicate that the class is a service
 
-import java.util.Collections;                                                       // Per la gestione delle collezioni
-import java.util.Objects;                                                           // Per la gestione degli oggetti
+import java.util.Collections;                             // Import for Collections, a utility class to operate on collections
+import java.util.Objects;                                 // Import for Objects, a utility class to operate on objects
+
+/*
+    * UserDetailsServiceImpl is a service class that provides the logic to load the user by username.
+    * It uses the UserService to find the authenticated user by username.
+    * It returns a UserDetails object with the authenticated user details.
+    * It throws a UsernameNotFoundException if the user is not found.
+ */
 
 
 @Slf4j
@@ -20,25 +27,27 @@ import java.util.Objects;                                                       
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService
 {
-    private static final String USERNAME_OR_PASSWORD_INVALID = "Invalid username or password"; // Messaggio di errore per l'eccezione UsernameNotFoundException
+    private static final String USERNAME_OR_PASSWORD_INVALID = "Invalid username or password";
 
-    private final UserService userService;                                           // UserService per la gestione degli utenti
+    private final UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username)
     {
-        final AuthenticatedUserDto authenticatedUser = userService.findAuthenticatedUserByUsername(username); // Cerco l'utente per nome utente
+        final AuthenticatedUserDto authenticatedUser = userService.findAuthenticatedUserByUsername(username);           // Here we find the authenticated user by username
 
-        if (Objects.isNull(authenticatedUser)) // Se l'utente non è presente
+        // If the authenticated user is null, throw a UsernameNotFoundException
+        if (Objects.isNull(authenticatedUser))
         {
-            throw new UsernameNotFoundException(USERNAME_OR_PASSWORD_INVALID); // Lancio l'eccezione
+            throw new UsernameNotFoundException(USERNAME_OR_PASSWORD_INVALID);
         }
 
-        final String authenticatedUsername = authenticatedUser.getUsername(); // Ottengo il nome utente
-        final String authenticatedPassword = authenticatedUser.getPassword(); // Ottengo la password
-        final UserRole userRole = authenticatedUser.getUserRole(); // Ottengo il ruolo dell'utente
-        final SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.name()); // Creo un'istanza di SimpleGrantedAuthority con il ruolo dell'utente
+        // If the authenticated user is not null, return a new UserDetails object with the authenticated user details
+        final String authenticatedUsername = authenticatedUser.getUsername();
+        final String authenticatedPassword = authenticatedUser.getPassword();
+        final UserRole userRole = authenticatedUser.getUserRole();
+        final SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.name());
 
-        return new User(authenticatedUsername, authenticatedPassword, Collections.singletonList(grantedAuthority)); // Restituisco un oggetto User con il nome utente, la password e il ruolo dell'utente
+        return new User(authenticatedUsername, authenticatedPassword, Collections.singletonList(grantedAuthority));
     }
 }

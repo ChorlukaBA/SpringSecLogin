@@ -1,8 +1,21 @@
 package com.lm.SpringSecLogin.model;
 
-import lombok.*;
+import lombok.*;            // lombok annotations
 
-import javax.persistence.*;
+import javax.persistence.*; // JPA annotations
+
+/*
+    This class is the User entity (JPA) that will be mapped to the database table USERS.
+    It has the following fields:
+    - id: the primary key of the entity
+    - name: the name of the user
+    - username: the username of the user
+    - email: the email of the user
+    - password: the password of the user
+    - userRole: the role of the user
+
+    We use the lombok annotations to generate the getters, setters, constructors, and builder methods.
+ */
 
 @Entity
 @Getter

@@ -1,12 +1,18 @@
 package com.lm.SpringSecLogin.security.dto;
 
-import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;                  // Lombok annotation to create a no-args constructor
+import lombok.Getter;                             // Lombok annotation to create getters
+import lombok.Setter;                             // Lombok annotation to create setters
+import lombok.ToString;                           // Lombok annotation to create a toString method
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;     // Import used for validation of fields, checks that the annotated field is not null or empty
+import javax.validation.constraints.Email;        // Import used for validation of fields, checks that the annotated field is a valid email address
+
+/**
+ * RegistrationRequest class is used to store the user's name, username, email, and password
+ * during the registration process.
+ * It's a Data Transfer Object (DTO) used to transfer data between software application subsystems.
+ */
 
 @NoArgsConstructor
 @Getter

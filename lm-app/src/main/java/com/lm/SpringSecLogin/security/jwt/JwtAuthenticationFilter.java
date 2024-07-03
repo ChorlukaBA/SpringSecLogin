@@ -1,24 +1,31 @@
 package com.lm.SpringSecLogin.security.jwt;
 
-import com.lm.SpringSecLogin.security.service.UserDetailsServiceImpl;
-import com.lm.SpringSecLogin.security.utils.SecurityConstants;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Service;
+import com.lm.SpringSecLogin.security.service.UserDetailsServiceImpl;                       // Import of UserDetailsServiceImpl, useful for loading user details
+import com.lm.SpringSecLogin.security.utils.SecurityConstants;                              // Import of SecurityConstants, that contains the login and registration request URI and the header string
+import lombok.RequiredArgsConstructor;                                                      // Import of RequiredArgsConstructor, useful for creating a constructor with all the required fields
+import lombok.extern.slf4j.Slf4j;                                                           // Import of slf4j, useful for logging
+import org.apache.commons.lang3.StringUtils;                                                // Import of StringUtils, useful for working with Strings
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;     // This allows us to create an authentication token given a username and password
+import org.springframework.security.core.context.SecurityContextHolder;                     // Needed in order to get the current security context or set it
+import org.springframework.security.core.context.SecurityContext;                           // Needed in order to operate with the security context
+import org.springframework.web.filter.OncePerRequestFilter;                                 // We extend this class in order to create a filter that only executes once per request
+import org.springframework.security.core.userdetails.UserDetails;                           // Needed in order to operate with the user details
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;      // Needed in order to get the details of the authentication
+import org.springframework.stereotype.Service;                                              // Needed in order to mark this class as a service
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Objects;
+import javax.servlet.FilterChain;                                                           // We use the filterchain defined in our doFilterInternal method
+import javax.servlet.ServletException;                                                      // We use this exception in case of a servlet exception
+import javax.servlet.http.HttpServletRequest;                                               // We use this class in order to get the request
+import javax.servlet.http.HttpServletResponse;                                              // We use this class in order to get the response
+import java.io.IOException;                                                                 // We use this exception in case of an IO exception
+import java.util.Objects;                                                                   // We use this class in order to work with objects
+
+/**
+ * JwtAuthenticationFilter class is used to filter the incoming requests and check the presence of JWT in the header.
+ * It extends the OncePerRequestFilter class.
+ * It is used to authenticate the user based on the JWT token.
+ */
+
 
 @Slf4j
 @Service

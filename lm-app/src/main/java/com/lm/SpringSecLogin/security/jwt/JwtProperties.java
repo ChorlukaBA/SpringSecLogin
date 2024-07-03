@@ -1,12 +1,17 @@
 package com.lm.SpringSecLogin.security.jwt;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import lombok.Getter;                                                           // Lombok annotation to create all getters
+import lombok.Setter;                                                           // Lombok annotation to create all setters
+import org.springframework.boot.context.properties.ConfigurationProperties;     // We get our properties from application.yml file
+import org.springframework.context.annotation.Configuration;                    // Spring annotation to define a configuration class
+
+/**
+ * JwtProperties class is used to store the properties of JWT token (issuer, secretKey, expirationMinute)
+ * We get our properties from application.yml file where the prefix is jwt
+ */
 
 @Configuration
-@ConfigurationProperties(prefix = "jwt")
+@ConfigurationProperties(prefix = "jwt")                          // We get our properties from application.yml file where the prefix is jwt
 @Getter
 @Setter
 public class JwtProperties

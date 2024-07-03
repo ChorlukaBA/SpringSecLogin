@@ -1,49 +1,64 @@
-server:
-  port: 8080
-  error:
-    include-message: always
+# This file is used to configure the application.
+# The application will read the configuration from this file.
 
+# The configuration is divided into sections.
+# Each section is identified by a keyword followed by a colon.
+# The configuration values are specified after the colon.
+
+# The server keyword is used to configure the server.
+server:
+  port: 8080                  # The port keyword is used to specify the port number.
+  error:                      # The error keyword is used to configure the error messages.
+    include-message: always   # The include-message keyword is used to specify whether to include the error message in the response.
+
+# The spring keyword is used to configure the Spring Boot application.
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE:world}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
-    username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:dbpassword}
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL55Dialect
-    hibernate:
-      ddl-auto: update
-      show-sql: true
-      format-sql: true
-      type: info
-      use-sql-comments: true
-      properties:
-        hibernate.use_sql_comments: true
-        hibernate.format_sql: true
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE:world}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false  # Here we specify the database URL
+    username: ${MYSQL_USER:root}                                                 # Here we specify the database username
+    password: ${MYSQL_PASSWORD:dbpassword}                                       # Here we specify the database password
+  jpa:                                                                           # The jpa keyword is used to configure the JPA settings.
+    database-platform: org.hibernate.dialect.MySQL55Dialect                     # We choose the MySQL55Dialect as the database platform
+    hibernate:                                                                  # The hibernate keyword is used to configure the Hibernate(JPA) settings.
+      ddl-auto: update                                                          # The ddl-auto keyword is used to specify the DDL generation strategy, we choose update to update the schema.
+      show-sql: true                                                            # The show-sql keyword is used to specify whether to show the SQL queries in the console.
+      format-sql: true                                                          # The format-sql keyword is used to specify whether to format the SQL queries.
+      type: info                                                                # The type keyword is used to specify the logging level.
+      use-sql-comments: true                                                    # The use-sql-comments keyword is used to specify whether to use SQL comments.
+      properties:                                                               # Additional properties.
+        hibernate.use_sql_comments: true                                        # We enable the use of SQL comments.
+        hibernate.format_sql: true                                              # We enable the formatting of SQL queries.
 
+# The springdoc keyword is used to configure the Springdoc OpenAPI settings.
 springdoc:
-  show-actuator: true
-  paths-to-match: /**
-  packages-to-scan: com.lm.SpringSecLogin
+  show-actuator: true                                    # The show-actuator keyword is used to specify whether to show the actuator endpoints.
+  paths-to-match: /**                                    # The paths-to-match keyword is used to specify the paths to match inside the project.
+  packages-to-scan: com.lm.SpringSecLogin                # The packages-to-scan keyword is used to specify in which packages to scan for OpenAPI annotations.
 
+# The management keyword is used to configure the management settings.
 management:
-  endpoint:
-    health:
-      show-details: ALWAYS
+  endpoint:                                            # The endpoint keyword is used to configure the endpoints.
+    health:                                            # The health keyword is used to configure the health endpoint.
+      show-details: ALWAYS                             # The show-details keyword is used to specify whether to show the details of the health endpoint.
     endpoints:
       web:
         exposure:
           include: "*"
 
+# The logging keyword is used to configure the logging settings. We set the logging level for the Spring framework and our application to INFO.
+# This means that only INFO level logs will be displayed.
 logging:
   level:
     org.springframework: INFO
     com.lm.SpringSecLogin: INFO
 
+# The jwt keyword is used to configure the JWT settings.
 jwt:
-  secretKey: secret
-  issuer: lm
-  expirationMinute: 10
+  secretKey: secret                                   # The secretKey keyword is used to specify the secret key for the JWT token.
+  issuer: lm                                          # The issuer keyword is used to specify the issuer of the JWT token.
+  expirationMinute: 10                                # The expirationMinute keyword is used to specify the expiration time of the JWT token in minutes.
 
+# The swagger keyword is used to configure the Swagger settings.
 swagger:
   contact-name: Luca Eugenio Corrado & Marco Francesco Sette
   contact-url: ${SWAGGER_CONTACT_URL:https://www.unimore.it/it}

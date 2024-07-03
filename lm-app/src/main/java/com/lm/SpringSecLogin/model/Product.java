@@ -1,9 +1,15 @@
 package com.lm.SpringSecLogin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Entity;                // JPA Entity, allows us to map this class to a table in the database
+import javax.persistence.GeneratedValue;        // JPA annotation to specify how the primary key should be generated
+import javax.persistence.GenerationType;        // JPA annotation to specify the generation strategy for the primary key
+import javax.persistence.Id;                    // JPA annotation to specify which is the primary key of an entity
+
+/**
+ * The Product class is a JPA Entity, which means that it is a class that is mapped to a table in the database.
+ * The table name is the same as the class name, and the columns are the fields of the class.
+ * The @Id annotation specifies the primary key of the entity, and the @GeneratedValue annotation specifies how the primary key should be generated.
+ */
 
 @Entity
 public class Product
