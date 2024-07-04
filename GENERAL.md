@@ -749,8 +749,8 @@ Swagger is an open-source framework that allows developers to design, build, doc
 
 With Swagger, we can define your API using the **OpenAPI** Specification (formerly known as Swagger Specification). This specification allow us to describe our API endpoints, request/response formats, authentication methods, and more. 
 It provides a standardized way to document and communicate our API design.
-
-To use Swagger, we can add the Swagger dependency to our project in the `pom.xml` file:
+See the example below:
+- We can add the Swagger dependency to our project in the `pom.xml` file:
 ```xml
 <properties>
 	<openapi-swagger.version>1.6.15</openapi-swagger.version>
@@ -762,3 +762,78 @@ To use Swagger, we can add the Swagger dependency to our project in the `pom.xml
 	<version>${openapi-swagger.version}</version>
 </dependency>
 ```
+- Here, the repository that we’ll be using is a bare-bones PagingAndSortingRepository interface, with the model Foo:
+```java
+@Repository
+public interface FooRepository extends PagingAndSortingRepository<Foo, Long>{}
+
+@Entity
+public class Foo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    
+    @Column(nullable = false)
+    private String title;
+  
+    @Column()
+    private String body;
+
+    // constructor, getters and setters
+}
+```
+- The FooController we'll be using:
+```java
+@RestController
+@RequestMapping("/foo")
+public class FooController {
+
+    @Autowired
+    FooRepository repository;
+
+    @GetMapping
+    public ResponseEntity<List<Foo>> getAllFoos() {
+        // implementation
+    }
+
+    @GetMapping(value = "{id}")
+    public ResponseEntity<Foo> getFooById(@PathVariable("id") Long id) {
+        // implementation
+    }
+
+    @PostMapping
+    public ResponseEntity<Foo> addFoo(@RequestBody @Valid Foo foo) {
+        // implementation
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFoo(@PathVariable("id") long id) {
+        // implementation
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Foo> updateFoo(@PathVariable("id") long id, @RequestBody Foo foo) {
+        // implementation
+    }
+}
+```
+The tool will introspect the code for our API, and read the controller methods’ annotations. On that basis, it’ll generate the API JSON which will be live at `http://localhost:8080/api-docs/`. It’ll also serve a basic UI at `http://localhost:8080/swagger-ui-custom.html`:
+
+![](https://github.com/ChorlukaBA/SpringSecLogin/blob/main/images/SwaggerGeneral.png)
+
+As we can see, without adding any code at all, we obtained a beautiful visualization of our API, right down to the Foo schema. Using the Try it out button, we can even execute the operations and view the results.
+
+## Resources and further details
+- [Spring Boot](https://www.geeksforgeeks.org/introduction-to-spring-boot/)
+- [Spring Security](https://spring.io/projects/spring-security)
+	- [Authentication](https://docs.spring.io/spring-security/reference/features/authentication/index.html)
+	- [Authorization](https://docs.spring.io/spring-security/reference/servlet/authorization/index.html)
+	- [Cross Site Request Forgery (CSRF)](https://docs.spring.io/spring-security/reference/features/exploits/csrf.html)
+- [Spring Validation](https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html)
+- [Spring Data JPA](https://www.geeksforgeeks.org/spring-boot-spring-data-jpa/)
+- [JSON Web Tokens](https://jwt.io/introduction)
+- [MapStruct](https://medium.com/@susantamon/mapstruct-a-comprehensive-guide-in-spring-boot-context-1e7202da033e)
+- [Lombok](https://www.geeksforgeeks.org/introduction-to-project-lombok-in-java-and-how-to-get-started/)
+- [Swagger](https://swagger.io/docs/specification/2-0/what-is-swagger/)
+
+
